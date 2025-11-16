@@ -3,5 +3,7 @@ require("mason-lspconfig").setup({
     "clangd",
     "glsl_analyzer",
     "cmake_language_server",
+    "java-language-server",
+    "gradle-language-server",
   },
 })
