@@ -5,5 +5,6 @@ require("mason-lspconfig").setup({
     "cmake_language_server",
     "java-language-server",
     "gradle-language-server",
+    "kotlin-language-server",
   },
 })
