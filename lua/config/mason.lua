@@ -8,6 +8,7 @@ require("mason-lspconfig").setup({
     "kotlin-language-server",
     "lua-language-server",
     "html-lsp",
+    "emmet-language-server", -- for html
     "css-lsp",
     "marksman", -- markdown files
   },
