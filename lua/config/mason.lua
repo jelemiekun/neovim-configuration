@@ -6,5 +6,9 @@ require("mason-lspconfig").setup({
     "java-language-server",
     "gradle-language-server",
     "kotlin-language-server",
+    "lua-language-server",
+    "html-lsp",
+    "css-lsp",
+    "marksman", -- markdown files
   },
 })
