@@ -6,3 +6,8 @@ vim.filetype.add({
     glsl = "glsl", -- maps `.custom` files to GLSL
   },
 })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.tex",
+  command = "silent! !latexmk -pdf %",
+})
