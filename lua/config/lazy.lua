@@ -51,3 +51,13 @@ require("lazy").setup({
     },
   },
 })
+
+return {
+  { "neovim/nvim-lspconfig" },
+  {
+    "jose-elias-alvarez/typescript.nvim",
+    config = function()
+      require("typescript").setup({})
+    end,
+  },
+}
