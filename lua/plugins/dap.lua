@@ -10,22 +10,37 @@ return {
     config = function()
       local dap = require("dap")
 
+      -- Detect OS
+      local sysname = vim.loop.os_uname().sysname
+      local is_windows = sysname:match("Windows") or vim.fn.has("win32") == 1
+      local is_linux = sysname:match("Linux")
+
       -- C++ adapter using codelldb
-      dap.adapters.cpp = {
-        type = "server",
-        host = "127.0.0.1",
-        port = 13000,
-        executable = {
-          -- NOTE: make sure codelldb is installed and set the right absolute path
-          command = "/home/jelemikun/tools/codelldb/extension/adapter/codelldb",
-          args = { "--port", "13000" },
-        },
-      }
+      if is_linux then
+        dap.adapters.cpp = {
+          type = "server",
+          host = "127.0.0.1",
+          port = 13000,
+          executable = {
+            -- NOTE: make sure codelldb is installed and set the right absolute path
+            command = "/home/jelemikun/tools/codelldb/extension/adapter/codelldb",
+            args = { "--port", "13000" },
+          },
+        }
+      elseif is_windows then
+        dap.adapters.codelldb_win = {
+          type = "executable",
+          command = "C:/Users/jelemiekun/.vscode/extensions/vadimcn.vscode-lldb-1.12.1/adapter/codelldb.exe", -- adjust to your CodeLLDB path
+          name = "codelldb",
+        }
+      else
+        error("Unsupported OS for this DAP configuration")
+      end
 
       dap.configurations.cpp = {
         {
           name = "Launch file",
-          type = "cpp",
+          type = is_windows and "codelldb_win" or "cpp", -- use the correct adapter per OS
           request = "launch",
           program = function()
             local recomp = vim.fn.input("Have you recompiled the program if there were changes? [Y/n]: ")
@@ -35,13 +50,20 @@ return {
               return "" -- abort launch
             end
 
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            if is_windows then
+              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "\\", "file")
+            else
+              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,
           runInTerminal = true,
         },
       }
+
+      -- For C files, reuse the same config
+      dap.configurations.c = dap.configurations.cpp
 
       -- Keymaps for debugging
       -- Continue / step
