@@ -4,3 +4,4 @@
 
 vim.keymap.set("n", "<C-A-Up>", "<cmd>resize +1<CR>")
 vim.keymap.set("n", "<C-A-Down>", "<cmd>resize -1<CR>")
+vim.keymap.set("n", "<leader>cn", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Cellular Automaton" })
