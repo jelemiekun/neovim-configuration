@@ -13,19 +13,21 @@ vim.keymap.set("n", "<leader>ml", "<cmd>MagmaEvaluateLine<CR>", { desc = "Evalua
 vim.keymap.set("x", "<leader>mv", ":<C-u>MagmaEvaluateVisual<CR>", {
   desc = "Evaluate selected text",
 })
-vim.keymap.set(
-  "n",
-  "<leader>mo",
-  "<cmd>MagmaEvaluateOperator<CR>",
-  { desc = "Evaluate the text given by some operator" }
-)
+vim.keymap.set("n", "<leader>mo", function()
+  return vim.api.nvim_exec2("MagmaEvaluateOperator", { output = true }).output
+end, {
+  expr = true,
+  desc = "Evaluate with motion",
+})
+--[[ Disabled due to low chance of usability
 vim.keymap.set(
   "n",
   "<leader>ma",
   "<cmd>MagmaEvaluateArgument<CR>",
   { desc = "Evaluate the text following this command" }
 )
-vim.keymap.set("n", "<leader>mc", "<cmd>MagmaReevaluateCell<CR>", { desc = "Reevaluate the currently selected cell" })
+]]
+vim.keymap.set("n", "<leader>mR", "<cmd>MagmaReevaluateCell<CR>", { desc = "Reevaluate the currently selected cell" })
 vim.keymap.set(
   "n",
   "<leader>mD",
