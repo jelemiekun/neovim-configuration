@@ -52,6 +52,6 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<leader>me",
-  "<cmd>MagmaEnterOutput<CR>",
+  "<cmd>noautocmd MagmaEnterOutput<CR>",
   { desc = "Enter the output window, if it is currently open." }
 )
