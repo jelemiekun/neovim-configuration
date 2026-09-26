@@ -4,7 +4,27 @@
 
 vim.keymap.set("n", "<C-A-Up>", "<cmd>resize +1<CR>")
 vim.keymap.set("n", "<C-A-Down>", "<cmd>resize -1<CR>")
-vim.keymap.set("n", "<leader>cn", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Cellular Automaton" })
+
+-- Cellular Automaton
+local wk = require("which-key")
+
+wk.add({
+  { "<leader>cn", group = "Cellular Automaton" },
+})
+
+vim.keymap.set(
+  "n",
+  "<leader>cnr",
+  "<cmd>CellularAutomaton make_it_rain<CR>",
+  { desc = "CellularAutomaton - make_it_rain" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>cnl",
+  "<cmd>CellularAutomaton game_of_life<CR>",
+  { desc = "CellularAutomaton - game_of_life" }
+)
+vim.keymap.set("n", "<leader>cns", "<cmd>CellularAutomaton scramble<CR>", { desc = "CellularAutomaton - scramble" })
 
 -- Magma Keymaps
 vim.keymap.set("n", "<leader>mi", "<cmd>MagmaInit<CR>", { desc = "Initialize a runtime" })
